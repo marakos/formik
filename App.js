@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, useFormik } from "formik";
+import { Formik, Form, useFormik, ErrorMessage } from "formik";
 import { Container, Grid, Button } from "@material-ui/core";
 import Upload from "./Form";
 import * as yup from "yup";
@@ -19,18 +19,21 @@ function App() {
             validationSchema={validationSchema}
             onSubmit={async (values) => {
               console.log(values);
-              let data = new FormData();
-              await data.append("file", values.file);
-              console.log(data);
             }}
           >
             {(formProps) => (
               <Form>
                 <Grid>
                   <Upload file='file' formProps={formProps} />
+                  <ErrorMessage name='file'>
+                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  </ErrorMessage>
                 </Grid>
                 <Grid>
                   <Upload file='file2' formProps={formProps} />
+                  <ErrorMessage name='file2'>
+                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  </ErrorMessage>
                 </Grid>
                 <Button type='submit'>Submit</Button>
               </Form>
